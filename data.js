@@ -176,7 +176,7 @@ const DATA_3D = [
     ]
   },
 
-  /* ---- CATÉGORIE : Jeux & Loisirs ---- */
+  /* ---- CATÉGORIE : LOGO SERIES ---- */
   {
     categorie: "Logo séries en relief",
     fichiers: [
@@ -193,6 +193,33 @@ const DATA_3D = [
         id: "logo-02",
         nom: "Better Call Saul",
         image: "https://raw.githubusercontent.com/Pokemat22/La-Forge/main/assets/3d/bettercallsaul0.png",
+        stl: "assets/3d/figurine.stl",
+        images_sup: ["", "", "", ""],
+        dim_base: { h: 8, w: 120, l: 200, poids: 73.86 },
+        prix_modelisation: 4,
+      },
+       {
+        id: "logo-03",
+        nom: "Game of Thrones",
+        image: "https://raw.githubusercontent.com/Pokemat22/La-Forge/main/assets/3d/gameofthrones0.png",
+        stl: "assets/3d/figurine.stl",
+        images_sup: ["", "", "", ""],
+        dim_base: { h: 8, w: 120, l: 200, poids: 73.86 },
+        prix_modelisation: 4,
+      },
+       {
+        id: "logo-04",
+        nom: "The Boys",
+        image: "https://raw.githubusercontent.com/Pokemat22/La-Forge/main/assets/3d/theboys0.png",
+        stl: "assets/3d/figurine.stl",
+        images_sup: ["", "", "", ""],
+        dim_base: { h: 8, w: 120, l: 200, poids: 73.86 },
+        prix_modelisation: 4,
+      },
+       {
+        id: "logo-05",
+        nom: "Arcane",
+        image: "https://raw.githubusercontent.com/Pokemat22/La-Forge/main/assets/3d/arcane0.png",
         stl: "assets/3d/figurine.stl",
         images_sup: ["", "", "", ""],
         dim_base: { h: 8, w: 120, l: 200, poids: 73.86 },

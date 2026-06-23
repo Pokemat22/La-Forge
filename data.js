@@ -66,7 +66,7 @@ const CONFIG = {
 
   // Adresse mail de réception des commandes et demandes
   // ⚠️ Remplace par ton adresse mail
-  email_contact: "tonmail@exemple.fr",
+  email_contact: "m.ramonet222@gmail.com",
 };
 
 

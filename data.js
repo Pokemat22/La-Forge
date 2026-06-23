@@ -66,7 +66,7 @@ const CONFIG = {
 
   // Adresse mail de réception des commandes et demandes
   // ⚠️ Remplace par ton adresse mail
-  email_contact: "tonmail@exemple.fr",
+  email_contact: "m.ramonet222@gmail.com",
 };
 
 
@@ -121,11 +121,11 @@ const DATA_3D = [
 
   /* ---- CATÉGORIE : Décoration ---- */
   {
-    categorie: "Décoration",
+    categorie: "Support-Casque",
     fichiers: [
       {
-        id: "vase-01",
-        nom: "Vase géométrique",
+        id: "support-casque-01",
+        nom: "Support Casque Steve MINECRAFT",
         image: "assets/3d/vase-main.jpg",       // ← REMPLACE par ton image
         stl: "assets/3d/vase.stl",              // ← REMPLACE par ton fichier STL
         images_sup: [

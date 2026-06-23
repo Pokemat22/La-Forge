@@ -129,9 +129,9 @@ const DATA_3D = [
         image: "assets/3d/vase-main.jpg",       // ← REMPLACE par ton image
         stl: "assets/3d/vase.stl",              // ← REMPLACE par ton fichier STL
         images_sup: [
-          "assets/3d/vase-2.jpg",               // ← image supplémentaire 2
-          "assets/3d/vase-3.jpg",               // ← image supplémentaire 3
-          "",                                   // ← laisser vide si pas d'image
+          "https://raw.githubusercontent.com/Pokemat22/La-Forge/main/assets/3d/steve1.png",               // ← image supplémentaire 2
+          "https://raw.githubusercontent.com/Pokemat22/La-Forge/main/assets/3d/steve2.png",               // ← image supplémentaire 3
+          "https://raw.githubusercontent.com/Pokemat22/La-Forge/main/assets/3d/steve3.png",                                   // ← laisser vide si pas d'image
           "",
         ],
         dim_base: { h: 15, w: 8, l: 8, poids: 120 },  // ← dimensions & poids de base

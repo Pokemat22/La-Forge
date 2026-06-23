@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LAFORGE – Impression 3D & Découpe Laser</title>
+  <link rel="stylesheet" href="style.css"/>
+  <!-- Three.js pour le viewer STL -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+
+<!-- ============================================================
+     EN-TÊTE / NAVIGATION
+     ============================================================ -->
+<header class="site-header">
+  <div class="header-inner">
+    <!-- LOGO : remplace "logo.svg" par ton vrai fichier logo -->
+    <a href="index.html" class="logo-link">
+      <img src="assets/logo.svg" alt="LAFORGE" class="logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+      <span class="logo-text" style="display:none">LAFORGE</span>
+    </a>
+    <!-- ONGLETS DE NAVIGATION -->
+    <nav class="main-nav">
+      <button class="nav-tab active" data-tab="impression3d">Impression 3D</button>
+      <button class="nav-tab" data-tab="decoupelaser">Découpe Laser</button>
+      <button class="nav-tab" data-tab="demandeperso">Demande Personnalisée</button>
+    </nav>
+  </div>
+</header>
+
+<!-- ============================================================
+     CONTENU PRINCIPAL
+     ============================================================ -->
+<main>
+
+  <!-- ==========================================
+       ONGLET 1 : IMPRESSION 3D
+       ========================================== -->
+  <section id="tab-impression3d" class="tab-content active">
+    <div class="tab-hero">
+      <h1>Impression 3D</h1>
+      <p>Vos objets imprimés sur mesure, à partir de vos besoins.</p>
+    </div>
+
+    <!-- Les catégories et fichiers sont générés par JavaScript via DATA_3D -->
+    <div id="catalogue-3d" class="catalogue"></div>
+  </section>
+
+  <!-- ==========================================
+       ONGLET 2 : DÉCOUPE LASER
+       ========================================== -->
+  <section id="tab-decoupelaser" class="tab-content">
+    <div class="tab-hero">
+      <h1>Découpe Laser</h1>
+      <p>Gravure et découpe précises sur bois et autres matériaux.</p>
+    </div>
+
+    <!-- Les catégories et fichiers sont générés par JavaScript via DATA_LASER -->
+    <div id="catalogue-laser" class="catalogue"></div>
+  </section>
+
+  <!-- ==========================================
+       ONGLET 3 : DEMANDE PERSONNALISÉE
+       ========================================== -->
+  <section id="tab-demandeperso" class="tab-content">
+    <div class="tab-hero">
+      <h1>Demande Personnalisée</h1>
+    </div>
+
+    <div class="demande-container">
+      <!-- Consignes -->
+      <div class="card consignes">
+        <h2>Comment formuler votre demande ?</h2>
+        <p>
+          Ici, vous pouvez me demander ce que vous souhaitez : joindre une image de référence,
+          ou directement un fichier 3D que je peux imprimer. Décrivez ce que vous voulez —
+          les formes, les dimensions, le type de filament (pour la 3D) ou le matériau (pour la découpe).
+          Vous pouvez aussi préciser si vous souhaitez de la couleur, une peinture, un assemblage
+          de plusieurs pièces en 3D et découpe, ou encore demander des modifications sur un fichier
+          déjà existant visible sur les autres pages. Toute demande est la bienvenue !
+        </p>
+      </div>
+
+      <!-- Formulaire de contact -->
+      <div class="card demande-form-card">
+        <h2>Votre demande</h2>
+
+        <label class="form-label" for="demande-nom">Votre nom</label>
+        <input type="text" id="demande-nom" class="form-input" placeholder="Jean Dupont"/>
+
+        <label class="form-label" for="demande-email">Votre e-mail</label>
+        <input type="email" id="demande-email" class="form-input" placeholder="jean@exemple.fr"/>
+
+        <label class="form-label" for="demande-type">Type de demande</label>
+        <select id="demande-type" class="form-input">
+          <option value="3d">Impression 3D</option>
+          <option value="laser">Découpe Laser</option>
+          <option value="autre">Autre / Les deux</option>
+        </select>
+
+        <label class="form-label" for="demande-message">Votre message</label>
+        <textarea id="demande-message" class="form-input form-textarea"
+          placeholder="Décrivez votre projet ici : forme, taille, couleur, matériau, assemblage..."></textarea>
+
+        <!-- Pièce jointe : image ou fichier 3D -->
+        <label class="form-label" for="demande-fichier">Joindre un fichier (image, STL, DXF…)</label>
+        <input type="file" id="demande-fichier" class="form-input-file"
+               accept=".jpg,.jpeg,.png,.gif,.stl,.dxf,.svg,.pdf,.zip"/>
+
+        <button class="btn-primary btn-send" onclick="envoyerDemande()">
+          ✉ Envoyer ma demande
+        </button>
+
+        <!-- Message de confirmation -->
+        <div id="demande-confirm" class="confirm-msg" style="display:none">
+          ✅ Votre demande a bien été envoyée ! Je reviendrai vers vous rapidement.
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============================================================
+     PAGE DÉTAIL D'UN FICHIER (overlay/modal)
+     ============================================================ -->
+<div id="detail-overlay" class="detail-overlay" style="display:none">
+  <div class="detail-page">
+    <button class="btn-back" onclick="fermerDetail()">← Retour</button>
+
+    <h1 id="detail-titre" class="detail-titre"></h1>
+
+    <div class="detail-grid">
+
+      <!-- IMAGE PRINCIPALE -->
+      <div class="card detail-img-card">
+        <img id="detail-img-principale" src="" alt="" class="detail-img-principale"/>
+      </div>
+
+      <!-- VIEWER STL -->
+      <div class="card detail-stl-card">
+        <p class="card-label">Vue 3D (cliquez-déplacez pour tourner)</p>
+        <div id="stl-viewer" class="stl-viewer">
+          <!-- Three.js canvas s'insère ici dynamiquement -->
+          <p class="stl-placeholder">Fichier STL :<br><span id="stl-filename"></span></p>
+        </div>
+      </div>
+
+    </div><!-- fin detail-grid -->
+
+    <!-- 4 IMAGES SUPPLÉMENTAIRES -->
+    <div class="detail-extra-imgs">
+      <!-- Ces images sont remplies dynamiquement par JS -->
+      <div class="card img-extra-card"><img id="img-extra-1" src="" alt=""/><p class="img-extra-empty">Image 2</p></div>
+      <div class="card img-extra-card"><img id="img-extra-2" src="" alt=""/><p class="img-extra-empty">Image 3</p></div>
+      <div class="card img-extra-card"><img id="img-extra-3" src="" alt=""/><p class="img-extra-empty">Image 4</p></div>
+      <div class="card img-extra-card"><img id="img-extra-4" src="" alt=""/><p class="img-extra-empty">Image 5</p></div>
+    </div>
+
+    <!-- ===== SECTION PRIX ===== -->
+    <div class="section-prix">
+      <h2 class="section-titre">Configuration & Prix</h2>
+
+      <!-- DIMENSIONNEMENT -->
+      <div class="prix-grid">
+        <div class="card prix-card">
+          <h3 class="prix-card-title">📐 Dimensions</h3>
+          <p class="prix-note" id="dim-note-max"></p>
+          <div class="dim-grid">
+            <label>Hauteur (cm)
+              <input type="number" id="dim-h" class="dim-input" min="0.1" step="0.1" oninput="recalcDimensions('h')"/>
+            </label>
+            <label>Largeur (cm)
+              <input type="number" id="dim-w" class="dim-input" min="0.1" step="0.1" oninput="recalcDimensions('w')"/>
+            </label>
+            <label>Longueur (cm)
+              <input type="number" id="dim-l" class="dim-input" min="0.1" step="0.1" oninput="recalcDimensions('l')"/>
+            </label>
+            <label>Poids (g)
+              <input type="number" id="dim-poids" class="dim-input" min="0.1" step="0.1" oninput="recalcDimensions('poids')"/>
+            </label>
+          </div>
+        </div>
+
+        <!-- MATÉRIAU / FILAMENT -->
+        <div class="card prix-card" id="card-filament">
+          <h3 class="prix-card-title" id="label-filament">🎨 Type de filament</h3>
+          <div id="filament-options" class="options-list">
+            <!-- Rempli dynamiquement selon le type (3D ou laser) -->
+          </div>
+        </div>
+
+        <!-- PRIX IMPRESSION -->
+        <div class="card prix-card">
+          <h3 class="prix-card-title">🖨️ Prix d'impression / découpe</h3>
+          <p class="prix-desc">Poids × prix au kg (avec marge)</p>
+          <p class="prix-valeur" id="prix-impression">0.00 €</p>
+        </div>
+
+        <!-- PRIX MODÉLISATION -->
+        <div class="card prix-card">
+          <h3 class="prix-card-title">🎨 Temps de modélisation</h3>
+          <p class="prix-desc">Coût de conception du fichier</p>
+          <p class="prix-valeur" id="prix-modelisation">0.00 €</p>
+          <!-- Option : acheter uniquement le fichier STL -->
+          <div id="option-stl" class="option-stl-block">
+            <label class="toggle-label">
+              <input type="checkbox" id="achat-stl-only" onchange="recalcPrix()"/>
+              Acheter uniquement le fichier STL
+            </label>
+            <p class="prix-note">Prix = temps modélisation × marge STL</p>
+          </div>
+        </div>
+
+        <!-- LIVRAISON -->
+        <div class="card prix-card prix-card-wide">
+          <h3 class="prix-card-title">🚚 Frais de livraison</h3>
+          <p class="prix-desc">Calculés depuis Brest. Cliquez sur la carte pour choisir votre lieu de livraison.</p>
+          <div id="map-container" class="map-container">
+            <!-- Carte Google Maps interactive -->
+            <iframe
+              id="map-iframe"
+              class="map-iframe"
+              loading="lazy"
+              allowfullscreen
+              referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps/embed/v1/place?key=VOTRE_CLE_API_GOOGLE_MAPS&q=Brest,France&zoom=6">
+              <!-- ⚠️ REMPLACE "VOTRE_CLE_API_GOOGLE_MAPS" par ta vraie clé API Google Maps -->
+            </iframe>
+            <p class="prix-note">
+              ⚠️ Pour activer la carte interactive et le calcul automatique de distance,
+              <a href="https://developers.google.com/maps/documentation/embed/get-api-key" target="_blank">obtenez une clé API Google Maps</a>
+              et remplacez <code>VOTRE_CLE_API_GOOGLE_MAPS</code> dans le code.
+            </p>
+          </div>
+          <div class="livraison-manual">
+            <label>Ou entrez votre ville manuellement :
+              <input type="text" id="ville-livraison" class="form-input" placeholder="Paris, Lyon, Brest…"
+                     oninput="estimerLivraison()"/>
+            </label>
+            <p class="prix-note">Distance estimée depuis Brest</p>
+            <p class="prix-valeur" id="prix-livraison">0.00 €</p>
+          </div>
+        </div>
+
+        <!-- PRIX TOTAL -->
+        <div class="card prix-card prix-card-total">
+          <h3 class="prix-card-title">💶 Prix total</h3>
+          <div class="total-breakdown">
+            <span>Impression / découpe :</span><span id="total-impression">0.00 €</span>
+            <span>Modélisation :</span><span id="total-modelisation">0.00 €</span>
+            <span>Livraison :</span><span id="total-livraison">0.00 €</span>
+          </div>
+          <hr class="total-hr"/>
+          <p class="prix-valeur total-final" id="prix-total">0.00 €</p>
+          <button class="btn-primary btn-commander" onclick="commander()">
+            🛒 Commander
+          </button>
+        </div>
+
+      </div><!-- fin prix-grid -->
+    </div><!-- fin section-prix -->
+
+  </div><!-- fin detail-page -->
+</div><!-- fin detail-overlay -->
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="site-footer">
+  <p>© 2025 LAFORGE — Impression 3D & Découpe Laser · Brest, Bretagne</p>
+</footer>
+
+<!-- ============================================================
+     SCRIPTS
+     ============================================================ -->
+<script src="data.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>

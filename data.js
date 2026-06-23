@@ -119,7 +119,7 @@ const MATERIAUX_LASER = [
    ============================================================ */
 const DATA_3D = [
 
-  /* ---- CATÉGORIE : Décoration ---- */
+  /* ---- CATÉGORIE : SUPPORT CASQUE ---- */
   {
     categorie: "Support-Casque-Audio",
     fichiers: [
@@ -150,18 +150,18 @@ const DATA_3D = [
     ]
   },
 
-  /* ---- CATÉGORIE : Utilitaire ---- */
+  /* ---- CATÉGORIE : POKEMON ---- */
   {
-    categorie: "Utilitaire",
+    categorie: "Pokémon",
     fichiers: [
       {
-        id: "support-telephone-01",
-        nom: "Support téléphone de bureau",
-        image: "assets/3d/support-tel-main.jpg",
+        id: "pokemon-clic",
+        nom: "Pokémon Clic fonctionnel",
+        image: "https://raw.githubusercontent.com/Pokemat22/La-Forge/main/assets/3d/clic0.png",
         stl: "assets/3d/support-tel.stl",
-        images_sup: ["", "", "", ""],
-        dim_base: { h: 12, w: 8, l: 10, poids: 80 },
-        prix_modelisation: 6,
+        images_sup: ["https://raw.githubusercontent.com/Pokemat22/La-Forge/main/assets/3d/clic1.png", "https://raw.githubusercontent.com/Pokemat22/La-Forge/main/assets/3d/clic2.png", "", ""],
+        dim_base: { h: 62.60, w: 200.45, l: 229.46, poids: 225.29 },
+        prix_modelisation: 10,
       },
       {
         id: "boite-rangement-01",

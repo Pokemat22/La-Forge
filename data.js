@@ -225,6 +225,33 @@ const DATA_3D = [
         dim_base: { h: 8, w: 120, l: 200, poids: 73.86 },
         prix_modelisation: 4,
       },
+       {
+        id: "logo-06",
+        nom: "Daredevil",
+        image: "https://raw.githubusercontent.com/Pokemat22/La-Forge/main/assets/3d/daredevil0.png",
+        stl: "assets/3d/figurine.stl",
+        images_sup: ["", "", "", ""],
+        dim_base: { h: 8, w: 120, l: 200, poids: 73.86 },
+        prix_modelisation: 4,
+      },
+       {
+        id: "logo-07",
+        nom: "Loki",
+        image: "https://raw.githubusercontent.com/Pokemat22/La-Forge/main/assets/3d/loki0.png",
+        stl: "assets/3d/figurine.stl",
+        images_sup: ["", "", "", ""],
+        dim_base: { h: 8, w: 120, l: 200, poids: 73.86 },
+        prix_modelisation: 4,
+      },
+       {
+        id: "logo-08",
+        nom: "The Mandalorian",
+        image: "https://raw.githubusercontent.com/Pokemat22/La-Forge/main/assets/3d/themandalorian0.png",
+        stl: "assets/3d/figurine.stl",
+        images_sup: ["", "", "", ""],
+        dim_base: { h: 8, w: 120, l: 200, poids: 73.86 },
+        prix_modelisation: 4,
+      },
       // ↓↓↓ AJOUTER D'AUTRES FICHIERS ICI ↓↓↓
     ]
   },

@@ -121,11 +121,11 @@ const DATA_3D = [
 
   /* ---- CATÉGORIE : Décoration ---- */
   {
-    categorie: "Décoration",
+    categorie: "Support-Casque-Audio",
     fichiers: [
       {
-        id: "vase-01",
-        nom: "Vase géométrique",
+        id: "support-casque-steve-01",
+        nom: "Support Casque - Steve MINECRAFT",
         image: "assets/3d/vase-main.jpg",       // ← REMPLACE par ton image
         stl: "assets/3d/vase.stl",              // ← REMPLACE par ton fichier STL
         images_sup: [

@@ -127,7 +127,7 @@ const DATA_3D = [
         id: "support-casque-01",
         nom: "Support Casque Steve MINECRAFT",
         image: "assets/3d/vase-main.jpg",       // ← REMPLACE par ton image
-        stl: "assets/3d/vase.stl",              // ← REMPLACE par ton fichier STL
+        stl: "https://github.com/Pokemat22/La-Forge/blob/main/assets/3d/porte-casque.stl",              // ← REMPLACE par ton fichier STL
         images_sup: [
           "assets/3d/vase-2.jpg",               // ← image supplémentaire 2
           "assets/3d/vase-3.jpg",               // ← image supplémentaire 3

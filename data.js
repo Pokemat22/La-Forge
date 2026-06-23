@@ -178,16 +178,25 @@ const DATA_3D = [
 
   /* ---- CATÉGORIE : Jeux & Loisirs ---- */
   {
-    categorie: "Jeux & Loisirs",
+    categorie: "Logo séries en relief",
     fichiers: [
       {
-        id: "figurine-01",
-        nom: "Figurine robot",
-        image: "assets/3d/figurine-main.jpg",
+        id: "logo-01",
+        nom: "Breaking Bad",
+        image: "https://raw.githubusercontent.com/Pokemat22/La-Forge/main/assets/3d/breakingbad0.png",
         stl: "assets/3d/figurine.stl",
         images_sup: ["", "", "", ""],
-        dim_base: { h: 15, w: 8, l: 6, poids: 100 },
-        prix_modelisation: 20,
+        dim_base: { h: 8, w: 120, l: 200, poids: 76.74 },
+        prix_modelisation: 4,
+      },
+       {
+        id: "logo-02",
+        nom: "Better Call Saul",
+        image: "https://raw.githubusercontent.com/Pokemat22/La-Forge/main/assets/3d/bettercaullsaul0.png",
+        stl: "assets/3d/figurine.stl",
+        images_sup: ["", "", "", ""],
+        dim_base: { h: 8, w: 120, l: 200, poids: 73.86 },
+        prix_modelisation: 4,
       },
       // ↓↓↓ AJOUTER D'AUTRES FICHIERS ICI ↓↓↓
     ]

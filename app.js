@@ -40,7 +40,7 @@ function genererCatalogue(data, conteneurId, type) {
     cat.fichiers.forEach(fichier => {
       const card = document.createElement('div');
       card.className = 'fichier-card';
-      card.onclick = () => ouvrirDetail(fichier, type);
+      card.addEventListener('click', () => ouvrirDetail(fichier, type));
 
       // Image
       const img = document.createElement('img');

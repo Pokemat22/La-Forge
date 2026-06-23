@@ -138,9 +138,9 @@ function ouvrirDetail(fichier, type) {
   // Note dimensions max
   const noteMax = document.getElementById('dim-note-max');
   if (type === '3d') {
-    noteMax.textContent = `Max : ${CONFIG.max_3d.h}×${CONFIG.max_3d.w}×${CONFIG.max_3d.l} cm`;
+    noteMax.textContent = `Max : ${CONFIG.max_3d.h}×${CONFIG.max_3d.w}×${CONFIG.max_3d.l} mm`;
   } else {
-    noteMax.textContent = `Max : ${CONFIG.max_laser.h}×${CONFIG.max_laser.w} cm`;
+    noteMax.textContent = `Max : ${CONFIG.max_laser.h}×${CONFIG.max_laser.w} mm`;
   }
 
   // Filaments ou matériaux

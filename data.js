@@ -271,3 +271,5 @@ const DATA_LASER = [
       // ↓↓↓ AJOUTER D'AUTRES FICHIERS ICI ↓↓↓
     ]
   },
+     // ↓↓↓ AJOUTER D'AUTRES CATÉGORIES ICI ↓↓↓
+];

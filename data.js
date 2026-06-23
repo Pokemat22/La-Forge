@@ -137,15 +137,6 @@ const DATA_3D = [
         dim_base: { h: 121.55, w: 161.5, l: 161.96, poids: 160.85 },  // ← dimensions & poids de base
         prix_modelisation: 5,                          // ← prix de conception en €
       },
-      {
-        id: "pot-fleurs-01",
-        nom: "Pot de fleurs tressé",
-        image: "assets/3d/pot-fleurs-main.jpg",
-        stl: "assets/3d/pot-fleurs.stl",
-        images_sup: ["", "", "", ""],
-        dim_base: { h: 10, w: 10, l: 10, poids: 90 },
-        prix_modelisation: 8,
-      },
       // ↓↓↓ AJOUTER D'AUTRES FICHIERS ICI (copier le bloc ci-dessus) ↓↓↓
     ]
   },
@@ -162,15 +153,6 @@ const DATA_3D = [
         images_sup: ["https://raw.githubusercontent.com/Pokemat22/La-Forge/main/assets/3d/clic1.png", "https://raw.githubusercontent.com/Pokemat22/La-Forge/main/assets/3d/clic2.png", "", ""],
         dim_base: { h: 62.60, w: 200.45, l: 229.46, poids: 225.29 },
         prix_modelisation: 10,
-      },
-      {
-        id: "boite-rangement-01",
-        nom: "Boîte de rangement avec couvercle",
-        image: "assets/3d/boite-main.jpg",
-        stl: "assets/3d/boite.stl",
-        images_sup: ["", "", "", ""],
-        dim_base: { h: 8, w: 15, l: 10, poids: 150 },
-        prix_modelisation: 12,
       },
       // ↓↓↓ AJOUTER D'AUTRES FICHIERS ICI ↓↓↓
     ]
@@ -271,40 +253,21 @@ const DATA_LASER = [
 
   /* ---- CATÉGORIE : Décoration ---- */
   {
-    categorie: "Décoration",
+    categorie: "Cadre",
     fichiers: [
       {
-        id: "mandala-01",
-        nom: "Mandala décoratif",
-        image: "assets/laser/mandala-main.jpg",   // ← REMPLACE par ton image
+        id: "concorde",
+        nom: "Cadre-Lego-Concorde",
+        image: "assets/laser/concorde0.jpg",   // ← REMPLACE par ton image
         images_sup: [
           "assets/laser/mandala-2.jpg",
           "",
           "",
           "",
         ],
-        dim_base: { h: 40, w: 40, poids: 200 },   // h=hauteur, w=largeur (2D)
+        dim_base: { h: 1200, w: 53, poids: 200 },   // h=hauteur, w=largeur (2D)
         prix_modelisation: 15,
       },
       // ↓↓↓ AJOUTER D'AUTRES FICHIERS ICI ↓↓↓
     ]
   },
-
-  /* ---- CATÉGORIE : Mobilier ---- */
-  {
-    categorie: "Mobilier & Rangement",
-    fichiers: [
-      {
-        id: "etagere-01",
-        nom: "Étagère modulaire",
-        image: "assets/laser/etagere-main.jpg",
-        images_sup: ["", "", "", ""],
-        dim_base: { h: 50, w: 30, poids: 800 },
-        prix_modelisation: 25,
-      },
-      // ↓↓↓ AJOUTER D'AUTRES FICHIERS ICI ↓↓↓
-    ]
-  },
-
-  // ↓↓↓ AJOUTER D'AUTRES CATÉGORIES ICI ↓↓↓
-];

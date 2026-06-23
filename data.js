@@ -27,7 +27,7 @@ const CONFIG = {
   marge_laser: 2.5,           // multiplicateur marge sur la découpe
 
   // --- TRANSPORT ---
-  prix_par_km: 0.25,          // € par km depuis Brest (aller simple)
+  prix_par_km: 0.001,          // € par km depuis Brest (aller simple)
   // Distances approximatives (km) depuis Brest vers grandes villes
   // Tu peux compléter cette liste
   distances_villes: {

@@ -40,7 +40,7 @@ function genererCatalogue(data, conteneurId, type) {
     cat.fichiers.forEach(fichier => {
       const card = document.createElement('div');
       card.className = 'fichier-card';
-      card.addEventListener('click', () => ouvrirDetail(fichier, type));
+      card.onclick = () => ouvrirDetail(fichier, type);
 
       // Image
       const img = document.createElement('img');
@@ -217,16 +217,101 @@ let stlScene, stlCamera, stlRenderer, stlAnimId;
 
 function initSTLViewer(stlPath) {
   const viewer = document.getElementById('stl-viewer');
-  viewer.innerHTML = `
-    <model-viewer
-      src="${stlPath}"
-      alt="Modèle 3D"
-      auto-rotate
-      camera-controls
-      style="width:100%;height:100%;background:#e3f2fd;border-radius:12px;"
-      shadow-intensity="1">
-    </model-viewer>
-  `;
+  // Nettoyer l'ancien viewer
+  const oldCanvas = viewer.querySelector('canvas');
+  if (oldCanvas) oldCanvas.remove();
+  if (stlAnimId) cancelAnimationFrame(stlAnimId);
+
+  // Three.js setup
+  const W = viewer.clientWidth || 400;
+  const H = viewer.clientHeight || 300;
+
+  stlScene = new THREE.Scene();
+  stlScene.background = new THREE.Color(0xe8f4f8);
+
+  stlCamera = new THREE.PerspectiveCamera(45, W / H, 0.1, 1000);
+  stlCamera.position.set(0, 0, 300);
+
+  stlRenderer = new THREE.WebGLRenderer({ antialias: true });
+  stlRenderer.setSize(W, H);
+  viewer.appendChild(stlRenderer.domElement);
+
+  // Lumières
+  const ambiant = new THREE.AmbientLight(0xffffff, 0.6);
+  stlScene.add(ambiant);
+  const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+  dirLight.position.set(1, 2, 3);
+  stlScene.add(dirLight);
+
+  // Essayer de charger le fichier STL
+  fetch(stlPath)
+    .then(r => {
+      if (!r.ok) throw new Error('STL non trouvé');
+      return r.arrayBuffer();
+    })
+    .then(buffer => {
+      const geometry = parseSTL(buffer);
+      geometry.computeBoundingBox();
+      geometry.center();
+
+      const bbox = geometry.boundingBox;
+      const size = new THREE.Vector3();
+      bbox.getSize(size);
+      const maxDim = Math.max(size.x, size.y, size.z);
+      stlCamera.position.z = maxDim * 2;
+
+      const material = new THREE.MeshPhongMaterial({
+        color: 0x29b6f6,
+        specular: 0x111111,
+        shininess: 80,
+      });
+      const mesh = new THREE.Mesh(geometry, material);
+      stlScene.add(mesh);
+      animer3D(mesh);
+    })
+    .catch(() => {
+      // STL non chargé : afficher un cube placeholder
+      const geo = new THREE.BoxGeometry(80, 80, 80);
+      const mat = new THREE.MeshPhongMaterial({ color: 0x90caf9, wireframe: false });
+      const cube = new THREE.Mesh(geo, mat);
+      stlScene.add(cube);
+      animer3D(cube);
+    });
+
+  // Rotation par drag souris
+  let isDragging = false, lastX = 0, lastY = 0;
+  const canvas = stlRenderer.domElement;
+
+  canvas.addEventListener('mousedown', e => { isDragging = true; lastX = e.clientX; lastY = e.clientY; });
+  canvas.addEventListener('mousemove', e => {
+    if (!isDragging) return;
+    const dx = e.clientX - lastX, dy = e.clientY - lastY;
+    if (stlScene.children[2]) {
+      stlScene.children[2].rotation.y += dx * 0.01;
+      stlScene.children[2].rotation.x += dy * 0.01;
+    }
+    lastX = e.clientX; lastY = e.clientY;
+  });
+  canvas.addEventListener('mouseup', () => { isDragging = false; });
+
+  // Tactile
+  canvas.addEventListener('touchstart', e => {
+    isDragging = true;
+    lastX = e.touches[0].clientX;
+    lastY = e.touches[0].clientY;
+  });
+  canvas.addEventListener('touchmove', e => {
+    if (!isDragging) return;
+    const dx = e.touches[0].clientX - lastX;
+    const dy = e.touches[0].clientY - lastY;
+    if (stlScene.children[2]) {
+      stlScene.children[2].rotation.y += dx * 0.01;
+      stlScene.children[2].rotation.x += dy * 0.01;
+    }
+    lastX = e.touches[0].clientX;
+    lastY = e.touches[0].clientY;
+  });
+  canvas.addEventListener('touchend', () => { isDragging = false; });
 }
 
 function animer3D(mesh) {

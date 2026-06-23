@@ -61,8 +61,8 @@ const CONFIG = {
   },
 
   // Dimensions maximales autorisées
-  max_3d: { h: 25, w: 25, l: 25 },   // cm
-  max_laser: { h: 55, w: 85 },        // cm (laser = 2D, pas de hauteur)
+  max_3d: { h: 250, w: 250, l: 250 },   // mm
+  max_laser: { h: 550, w: 850 },        // mm (laser = 2D, pas de hauteur)
 
   // Adresse mail de réception des commandes et demandes
   // ⚠️ Remplace par ton adresse mail
@@ -134,8 +134,8 @@ const DATA_3D = [
           "https://raw.githubusercontent.com/Pokemat22/La-Forge/main/assets/3d/steve3.png",                                   // ← laisser vide si pas d'image
           "",
         ],
-        dim_base: { h: 15, w: 8, l: 8, poids: 120 },  // ← dimensions & poids de base
-        prix_modelisation: 10,                          // ← prix de conception en €
+        dim_base: { h: 121.55, w: 161.5, l: 161.96, poids: 160.85 },  // ← dimensions & poids de base
+        prix_modelisation: 5,                          // ← prix de conception en €
       },
       {
         id: "pot-fleurs-01",
